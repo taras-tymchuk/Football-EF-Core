@@ -10,49 +10,50 @@ namespace DAL.Repositories
         : IRepository<TEntity> where TEntity : class
                                where TContext : DbContext
     {
-        private DbSet<TEntity> _entities;
+        private DbSet<TEntity> entities;
 
         protected TContext Context;
 
         public Repository( TContext context )
         {
             Context = context;
-            _entities = Context.Set<TEntity>();
+            entities = Context.Set<TEntity>();
         }
 
         public void Add( TEntity entity )
         {
-            _entities.Add( entity );
+            entities.Add( entity );
         }
 
         public void AddRange( IEnumerable<TEntity> entities )
         {
-            _entities.AddRange( entities );
+            this.entities.AddRange( entities );
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            return _entities.ToList();
+            return entities.ToList();
         }
 
         public TEntity GetById( int id )
         {
-            return _entities.Find( id );
+            return entities.Find( id );
         }
 
         public void Remove( TEntity entity )
         {
-            _entities.Remove( entity );
+            entities.Remove( entity );
         }
 
         public void RemoveRange( IEnumerable<TEntity> entities )
         {
-            _entities.RemoveRange( entities );
+            this.entities.RemoveRange( entities );
         }
 
-        public IEnumerable<TEntity> Find( Expression<Func<TEntity, bool>> predicate )
+        public IEnumerable<TEntity> Find( 
+                Expression<Func<TEntity, bool>> predicate )
         {
-            return _entities.Where( predicate ).ToList();
+            return entities.Where( predicate ).ToList();
         }
     }
 }

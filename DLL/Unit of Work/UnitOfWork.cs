@@ -1,36 +1,30 @@
-﻿using DAL.Repositories;
-using DAL.Context;
+﻿using DAL.Context;
+using DAL.Repositories;
 
 namespace DAL.Unit_Of_Work
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly FootballContext _context;
+        private readonly FootballContext context;
 
-        public IPlayerRepository Players
-        {
-            get; private set;
-        }
-        public ITeamRepository Teams
-        {
-            get; private set;
-        }
+        public IPlayerRepository Players { get; }
+        public ITeamRepository Teams { get; }
 
         public UnitOfWork( FootballContext context )
         {
-            _context = context;
-            Players = new PlayerRepository( _context );
-            Teams = new TeamRepository( _context );
+            this.context = context;
+            Players = new PlayerRepository( this.context );
+            Teams = new TeamRepository( this.context );
         }
 
         public int Save()
         {
-            return _context.SaveChanges();
+            return context.SaveChanges();
         }
 
         public void Dispose()
         {
-            _context.Dispose();
+            context.Dispose();
         }
     }
 }

@@ -16,24 +16,34 @@ namespace UI
 
             while ( flag )
             {
-                OperationType operation = 
-                    (OperationType)Int32.Parse(Console.ReadLine());
-                switch (operation)
+                OperationType operation =
+                    (OperationType) int.Parse( Console.ReadLine() );
+                switch ( operation )
                 {
                     case OperationType.Help:
                         controller.ShowMenu();
                         break;
 
-                    case OperationType.Teams:
+                    case OperationType.ShowTeams:
                         controller.ShowTeams();
                         break;
 
-                    case OperationType.Squads:
+                    case OperationType.ShowSquads:
                         controller.ShowAllTeamsWithSquad();
                         break;
 
+                    case OperationType.ShowOldPlayers:
+                        Console.Write( "Enter age limit: " );
+                        int age = int.Parse( Console.ReadLine() );
+                        controller.ShowOlderThan( age );
+                        break;
+
+                    case OperationType.CreateTeam:
+                        controller.CreateTeam();
+                        break;
+
                     default:
-                        Console.WriteLine("Thanks for session");
+                        Console.WriteLine( "Thanks for session" );
                         flag = false;
                         break;
                 }

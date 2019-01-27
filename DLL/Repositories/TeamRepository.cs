@@ -20,25 +20,12 @@ namespace DAL.Repositories
                 .Where( t => t.Name == teamName );
         }
 
-        public IEnumerable<Team> GetListOfPlayers( string teamName )
-        {
-            return Context.Teams
-                .Where( t => t.Name == teamName )
-                .Include( t => t.Players )
-                .ToList();
-        }
-
-        public IEnumerable<Team> GetTopRichestTeams( int count )
-        {
-            return Context.Teams
-                .OrderByDescending( t => t.Budget )
-                .Take( count );
-        }
-
         public void RemoveByTeamName( string teamName )
         {
             Context.Teams
-                .RemoveRange( Context.Teams.Where( t => t.Name == teamName ).ToList() );
+                .RemoveRange( Context.Teams
+                    .Where( t => t.Name == teamName )
+                    .ToList() );
         }
 
         public IEnumerable<Team> GetTeamsWithPlayers()

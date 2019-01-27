@@ -8,11 +8,11 @@ namespace BLLTesting
     [TestFixture]
     public class BllUnitTests
     {
-        [TestCase( true, 20, 30 )]
-        [TestCase( false, 30, 30 )]
-        [TestCase( false, 25, 20 )]
-        public void IsYoungerThan_BigAge_ReturnsFalse(
-            bool expected, int playerAge, int limitAge )
+        [TestCase( 20, 30, true )]
+        [TestCase( 30, 30, false )]
+        [TestCase( 25, 20, false )]
+        public void IsYoungerThanTest(
+            int playerAge, int limitAge, bool expected )
         {
             IAgeChecker ageChecker = new AgeChecker();
             Player player = new Player { Age = playerAge };
